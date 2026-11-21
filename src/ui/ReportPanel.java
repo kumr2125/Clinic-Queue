@@ -16,7 +16,7 @@ public class ReportPanel extends JPanel {
         setBackground(DesignConstants.BACKGROUND);
         setBorder(DesignConstants.padded());
         area.setEditable(false);
-        area.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 15));
+        area.setFont(DesignConstants.REPORT_FONT);
         area.setBorder(DesignConstants.padded());
         add(new JScrollPane(area), BorderLayout.CENTER);
         JButton refresh = QueuePanel.styledButton("Refresh report");

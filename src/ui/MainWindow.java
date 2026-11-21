@@ -104,7 +104,7 @@ public class MainWindow extends JFrame implements StatusListener {
 
     @Override public void show(String message, boolean ok) {
         statusLine.setText(message);
-        statusLine.setForeground(Color.WHITE);
+        statusLine.setForeground(DesignConstants.STATUS_TEXT);
         statusLine.setBackground(ok ? DesignConstants.SUCCESS : DesignConstants.ERROR);
     }
 }

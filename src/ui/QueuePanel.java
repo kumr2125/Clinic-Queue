@@ -24,6 +24,7 @@ public class QueuePanel extends JPanel {
     private final JComboBox<Patient> patientBox = new JComboBox<>();
     private final JComboBox<String> typeBox = new JComboBox<>(Visit.getTypeNames());
     private final JTextField notesField = new JTextField(15);
+    private final JLabel hint = new JLabel(" ");
     private final JButton issueButton = styledButton("Issue ticket");
 
     private final JButton callButton = styledButton("Call next");
@@ -94,7 +95,9 @@ public class QueuePanel extends JPanel {
         addRow(p, 0, "Patient:", patientBox);
         addRow(p, 1, "Visit type:", typeBox);
         addRow(p, 2, "Notes:", notesField);
-        addRow(p, 3, "", issueButton);
+        hint.setForeground(DesignConstants.ERROR);
+        addRow(p, 3, "", hint);
+        addRow(p, 4, "", issueButton);
         return p;
     }
 
@@ -171,6 +174,8 @@ public class QueuePanel extends JPanel {
         Object selected = patientBox.getSelectedItem();
         patientBox.removeAllItems();
         for (Patient p : service.getPatients()) patientBox.addItem(p);
+        patientBox.setEnabled(patientBox.getItemCount() > 0);
+        hint.setText(patientBox.getItemCount() > 0 ? " " : "No patients yet - register one in box 1 first.");
         if (selected != null) patientBox.setSelectedItem(selected);
         tableModel.setRowCount(0);
         for (QueueTicket t : service.getWaitingTickets()) {

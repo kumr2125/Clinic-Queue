@@ -106,13 +106,19 @@ public class ClinicService {
         return null;
     }
 
-    /** Sums the estimated minutes of every waiting ticket ahead of this one. */
+    /**
+     * Polymorphism: collects the Visit of every waiting ticket ahead of this one into a
+     * List<Visit> and calls getEstimatedMinutes() on each. Each subclass (Consultation,
+     * Dental, Check-up) answers with its own minutes.
+     */
     public int estimatedWaitMinutes(QueueTicket ticket) {
-        int total = 0;
+        List<Visit> visitsAhead = new ArrayList<>();
         for (QueueTicket t : tickets) {
             if (t == ticket) break;
-            if (t.isWaiting()) total += t.getEstimatedMinutes();
+            if (t.isWaiting()) visitsAhead.add(t.getVisit());
         }
+        int total = 0;
+        for (Visit v : visitsAhead) total += v.getEstimatedMinutes();
         return total;
     }
 
